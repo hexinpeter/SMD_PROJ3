@@ -18,24 +18,20 @@ for i in 0..locations.size-1
   
   if ( locations[i][0].to_i >= 3000 && locations[i][0].to_i <= 3999 )
     
+  	postcode = locations[i][1]
+  	longtitude = locations[i][6]
+  	latitude = locations[i][5] 
 
+  	pc = PostCode.where(num: postcode).any? ? PostCode.where(num: postcode) : PostCode.create(num: postcode)
 
-  	if PostCode.where(num: locations[i][1]) == nil
-
-  	end
-
-
-  	pid = PostCode.where(num: locations[i][1])
-
-
-
-
-    Location.create_without_ref_code(
-      long: locations[i][6],
-      lat: locations[i][5],
-      timezone: "Melbourne",
-      post_code_id: pid
+    loc = Location.new_without_ref_code(
+      long: longtitude,
+      lat: latitude,
+      timezone: "Melbourne"
     )
+
+    loc.post_code = pc
+    loc.save!
   end
 
 
