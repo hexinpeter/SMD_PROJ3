@@ -1,4 +1,14 @@
 Rails.application.routes.draw do
+  get 'prediction/show'
+
+  get 'prediction/show_area'
+
+  get 'data/locations'
+
+  get 'data/show'
+
+  get 'data/show_area'
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
