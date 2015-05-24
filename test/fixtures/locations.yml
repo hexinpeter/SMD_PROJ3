@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  long: 9.99
+  lat: 9.99
+  timezone: MyString
+  post_code_id: 
+
+two:
+  long: 9.99
+  lat: 9.99
+  timezone: MyString
+  post_code_id: 
