@@ -1,8 +1,7 @@
-json.array!(@posts) do |post|
-  json.extract! post, :id, :title, :content
-  json.url post_url(post, format: :json)
-  json.category do |json|
-    json.extract! post.category, :name, :description if post.category
-  end
+json.date @date.strftime('%d-%m-%Y')
+json.locations @locations do |location|
+  json.id location.ref_code
+  json.(location, :long, :lat)
+  json.late_update location.last_update
 end
 
