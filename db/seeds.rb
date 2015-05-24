@@ -5,3 +5,29 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
+
+
+require 'csv'
+
+puts Dir.pwd
+locations = CSV.read('./db/Postcodes.csv')
+
+
+for i in 0..locations.size-1
+  postcode = locations[i][0]
+  longtitude = locations[i][6]
+  latitude = locations[i][5]
+
+  if ( postcode.to_i >= 3000 && postcode.to_i <= 3999 )
+  	pc = PostCode.where(num: postcode).any? ? PostCode.find_by(num: postcode) : PostCode.create(num: postcode)
+
+    loc = Location.new_without_ref_code(
+      long: longtitude,
+      lat: latitude,
+      timezone: "Melbourne"
+    )
+
+    loc.post_code = pc
+    loc.save!
+  end
+end
