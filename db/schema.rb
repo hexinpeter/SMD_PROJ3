@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150524083026) do
+ActiveRecord::Schema.define(version: 20150524083736) do
 
   create_table "locations", force: :cascade do |t|
     t.decimal  "long"
@@ -20,6 +20,7 @@ ActiveRecord::Schema.define(version: 20150524083026) do
     t.integer  "post_code_id"
     t.datetime "created_at",   null: false
     t.datetime "updated_at",   null: false
+    t.integer  "ref_code"
   end
 
   add_index "locations", ["post_code_id"], name: "index_locations_on_post_code_id"
