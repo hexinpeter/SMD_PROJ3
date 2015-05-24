@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  dir: MyString
+  speed: 1.5
+  prob: 1.5
+  record_id: 
+
+two:
+  dir: MyString
+  speed: 1.5
+  prob: 1.5
+  record_id: 

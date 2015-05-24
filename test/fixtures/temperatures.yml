@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  value: 1.5
+  dew_point: 1.5
+  prob: 1.5
+  record_id: 
+
+two:
+  value: 1.5
+  dew_point: 1.5
+  prob: 1.5
+  record_id: 

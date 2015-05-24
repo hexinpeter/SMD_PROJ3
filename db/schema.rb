@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150524081053) do
+ActiveRecord::Schema.define(version: 20150524083026) do
 
   create_table "locations", force: :cascade do |t|
     t.decimal  "long"
@@ -30,6 +30,16 @@ ActiveRecord::Schema.define(version: 20150524081053) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "rains", force: :cascade do |t|
+    t.float    "amount"
+    t.float    "prob"
+    t.integer  "record_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "rains", ["record_id"], name: "index_rains_on_record_id"
+
   create_table "records", force: :cascade do |t|
     t.datetime "time"
     t.string   "condition"
@@ -40,5 +50,27 @@ ActiveRecord::Schema.define(version: 20150524081053) do
   end
 
   add_index "records", ["location_id"], name: "index_records_on_location_id"
+
+  create_table "temperatures", force: :cascade do |t|
+    t.float    "value"
+    t.float    "dew_point"
+    t.float    "prob"
+    t.integer  "record_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "temperatures", ["record_id"], name: "index_temperatures_on_record_id"
+
+  create_table "winds", force: :cascade do |t|
+    t.string   "dir"
+    t.float    "speed"
+    t.float    "prob"
+    t.integer  "record_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "winds", ["record_id"], name: "index_winds_on_record_id"
 
 end
