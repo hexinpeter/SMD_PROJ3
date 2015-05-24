@@ -1,0 +1,3 @@
+class PredictedRecord < Record
+
+end
