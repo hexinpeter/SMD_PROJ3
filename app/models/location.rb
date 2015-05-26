@@ -18,7 +18,7 @@ class Location < ActiveRecord::Base
   end
 
   def last_update
-    latest = actual_records.order(time).last
+    latest = actual_records.order(:time).last
     latest ? latest.time.strftime('%H:%M%p %d-%m-%Y').downcase : 'N/A'
   end
 
