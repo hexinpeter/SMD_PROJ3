@@ -18,8 +18,9 @@ for i in 0..locations.size-1
   longtitude = locations[i][6]
   latitude = locations[i][5]
 
-  if ( postcode.to_i >= 3000 && postcode.to_i <= 3999 )
-  	pc = PostCode.where(num: postcode).any? ? PostCode.find_by(num: postcode) : PostCode.create(num: postcode)
+  if ( postcode.to_i >= 3000 && postcode.to_i <= 3100 )
+    next if PostCode.find_by(num: postcode)
+  	pc = PostCode.create(num: postcode)
 
     loc = Location.new_without_ref_code(
       long: longtitude,
