@@ -17,9 +17,14 @@ class Location < ActiveRecord::Base
     loc
   end
 
+  def last_update
+    latest = actual_records.order(:time).last
+    latest ? latest.time.strftime('%H:%M%p %d-%m-%Y').downcase : 'N/A'
+  end
+
   private
     def Location.generate_ref_code
-      max_ref_code = Location.order(:ref_code).last.ref_code
+      max_ref_code = Location.any? ? Location.order(:ref_code).last.ref_code : nil
       max_ref_code ? max_ref_code + 1 : 10000
     end
 end

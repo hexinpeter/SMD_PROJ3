@@ -3,7 +3,7 @@ Rails.application.routes.draw do
 
   get 'prediction/show_area'
 
-  get 'data/locations'
+  get 'weather/locations', to: 'data#locations'
 
   get 'data/show'
 
