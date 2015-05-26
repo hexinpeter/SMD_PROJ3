@@ -24,7 +24,7 @@ class Location < ActiveRecord::Base
 
   private
     def Location.generate_ref_code
-      max_ref_code = Location.order(:ref_code).last.ref_code
+      max_ref_code = Location.any? ? Location.order(:ref_code).last.ref_code : nil
       max_ref_code ? max_ref_code + 1 : 10000
     end
 end
