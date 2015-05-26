@@ -6,4 +6,10 @@ class Record < ActiveRecord::Base
 
   scope :predicted_records, -> { where(type: 'PredictedRecord') }
   scope :actual_records, -> { where(type: nil) }
+
+  class << self
+    def new_with_unix_time(time)
+      Record.new(time: Time.at(time).utc)
+    end
+  end
 end
