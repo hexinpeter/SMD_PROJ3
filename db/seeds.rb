@@ -9,16 +9,16 @@
 
 require 'csv'
 
-puts Dir.pwd
-locations = CSV.read('./db/Postcodes.csv')
+POST_CODE_GAP = 10 # save 1 post code among the POST_CODE_GAP number of post codes
 
+locations = CSV.read('./db/Postcodes.csv')
 
 for i in 0..locations.size-1
   postcode = locations[i][0]
   longtitude = locations[i][6]
   latitude = locations[i][5]
 
-  if ( postcode.to_i >= 3000 && postcode.to_i <= 3100 )
+  if ( postcode.to_i >= 3000 && postcode.to_i <= 3999 && postcode.to_i%POST_CODE_GAP == 0 )
     next if PostCode.find_by(num: postcode)
   	pc = PostCode.create(num: postcode)
 
