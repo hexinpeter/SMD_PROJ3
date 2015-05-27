@@ -54,6 +54,6 @@ group :development, :test do
   gem 'spring'
 
   # Use pry in Rails console
-  gem 'pry-rails'
+  # gem 'pry-rails'
 end
 
