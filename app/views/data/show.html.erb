@@ -1,2 +1,27 @@
-<h1>Data#show</h1>
-<p>Find me in app/views/data/show.html.erb</p>
+<ul>
+  <li>weather/data/:location_id/:date</li>
+  <li>date: <%= @date %></li>
+  <li>current_temp: <%= @my_location.records.last.temperature.value %></li>
+</ul>
+
+<table border="1" class="table-hover">
+
+  <tr>
+    <td>time</td>
+    <td>temp</td>
+    <td>precip</td>
+    <td>wind_direction</td>
+    <td>wind_speed</td>
+  </tr>
+
+<% @my_records.each do |record| %>
+  <tr>
+    <td><%= record.time %></td>
+    <td><%= record.temperature.value %></td>
+    <td><%= record.rain.amount %></td>
+    <td><%= record.wind.dir %></td>
+    <td><%= record.wind.speed %></td>
+  </tr>
+<% end %>
+
+</table>

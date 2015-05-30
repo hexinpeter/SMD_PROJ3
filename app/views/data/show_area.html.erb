@@ -1,2 +1,25 @@
-<h1>Data#show_area</h1>
-<p>Find me in app/views/data/show_area.html.erb</p>
+<ul>
+  <li>weather/data/:post_code/:date</li>
+  <li>post_code: <%= @post_code %></li>
+  <li>date: <%= @date %></li>
+</ul>
+
+
+
+<% @my_locations.each do |location| %>
+<table>
+  <tr>
+    <td>ref_code for this location:</td>
+    <td><% location.ref_code %></td>
+  </tr>
+
+  <tr>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+  </tr>
+</table>
+<br>
+<% end %>

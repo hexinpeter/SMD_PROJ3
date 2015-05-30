@@ -35,7 +35,7 @@ gem 'tzinfo-data'
 # gem 'capistrano-rails', group: :development
 
 # RESTful API
-gem 'rest-client'
+# gem 'rest-client'
 
 # for bootstrap
 gem 'bootstrap-sass', '~> 3.2.0'
@@ -56,4 +56,3 @@ group :development, :test do
   # Use pry in Rails console
   # gem 'pry-rails'
 end
-

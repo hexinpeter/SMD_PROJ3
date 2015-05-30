@@ -5,9 +5,13 @@ Rails.application.routes.draw do
 
   get 'weather/locations', to: 'data#locations'
 
-  get 'data/show'
+  get 'weather/data/:location_id/:date', to: 'data#show'
 
-  get 'data/show_area'
+#   scope module: 'data' do
+#     resources :show, :show_area
+#   end
+
+  # get '/weather/data/:post_code/:date', to: 'data#show_area'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

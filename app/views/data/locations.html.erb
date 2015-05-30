@@ -1,2 +1,20 @@
-<h1>Data#locations</h1>
-<p>Find me in app/views/data/locations.html.erb</p>
+<h3>weather/locations</h3>
+<h4>date: <%= @date.strftime('%d-%m-%Y') %></h4>
+<table border="1" class="table-hover">
+  <tr>
+    <td>id</td>
+    <td>lat</td>
+    <td>lon</td>
+    <td>last_update</td>
+  </tr>
+
+  <% @locations.each do |location| %>
+  <tr>
+      <td><%= location.ref_code %></td>
+      <td><%= location.lat %></td>
+      <td><%= location.long %></td>
+      <td><%= location.records.all.last.time %></td>
+  </tr>
+  <% end %>
+
+</table>
