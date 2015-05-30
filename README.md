@@ -1,5 +1,9 @@
 # SMD_PROJ3
 
+## Assumptions
+
+* Only Victoria locations or postcodes[3000 - 3999] will be provided.
+
 ## Installation
 
 * $ `bundle install`
