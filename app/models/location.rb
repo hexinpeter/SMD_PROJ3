@@ -16,6 +16,20 @@ class Location < ActiveRecord::Base
     (self.lat - lat).abs + (self.long - long).abs
   end
 
+  def predictions(period)
+    period = period.to_i if period.class == String
+    generate_predictions
+    latest = actual_records.order(:time).last
+    result = [latest]
+    result += recent_predictions[0, period/10]
+  end
+
+  def recent_predictions
+    latest = predicted_records.last
+    return nil if !latest
+    predicted_records.where(created_at: latest.created_at).order(:time)
+  end
+
   # Generate the predicitons for the next 180 minutes, once for every 10 minutes, and store that in db
   # Actual records of the past 180 minutes has to be present for predictions to be done.
   # Return nil if there is not enough data for predictions.
@@ -47,7 +61,7 @@ class Location < ActiveRecord::Base
 
     (1..18).each do |i|
       pred_time = ref_time + i * 10.minutes
-      pred_rec = predicted_records.create(time: pred_time, created_at: pred_time)
+      pred_rec = predicted_records.create(time: pred_time, created_at: ref_time)
       pred_rec.temperature = Temperature.create(value: temp_value_analyser.extrapolate(pred_time.to_i)[0],
                                   dew_point: temp_dew_analyser.extrapolate(pred_time.to_i)[0],
                                   prob: temp_value_analyser.extrapolate(pred_time.to_i)[1])
@@ -77,11 +91,12 @@ class Location < ActiveRecord::Base
         end
       end
 
-      smallest <= 1 ? result : nil
+      smallest <= 5 ? result : nil
     end
 
 
     def find_closest_with_postcode(postcode)
+      postcode = postcode.to_i if postcode.class == String
       if PostCode.where(num: postcode).any?
         return PostCode.where(num: postcode).first.locations.first
       elsif postcode >= 3000 && postcode <= 3999
