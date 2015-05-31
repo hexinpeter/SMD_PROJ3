@@ -13,6 +13,16 @@
 * $ `rake weather:forecastio`
 * $ `rails s`
 
+## Set Up Recurring Task
+If in "development" environment:
+
+1. `whenever --update-crontab`
+
+If in "production":
+
+1. Change the environtment from `development` to `production` in `config/schedule.rb`
+2. Run from console `whenever --update-crontab`
+
 
 ## Navigate around
 
