@@ -18,6 +18,7 @@ class Location < ActiveRecord::Base
 
   def predictions(period)
     period = period.to_i if period.class == String
+    period = 180 if period > 180
     generate_predictions
     latest = actual_records.order(:time).last
     result = [latest]
@@ -62,12 +63,15 @@ class Location < ActiveRecord::Base
     (1..18).each do |i|
       pred_time = ref_time + i * 10.minutes
       pred_rec = predicted_records.create(time: pred_time, created_at: ref_time)
+      p "analysing temp #{i}"
       pred_rec.temperature = Temperature.create(value: temp_value_analyser.extrapolate(pred_time.to_i)[0],
                                   dew_point: temp_dew_analyser.extrapolate(pred_time.to_i)[0],
                                   prob: temp_value_analyser.extrapolate(pred_time.to_i)[1])
+      p "analysing wind #{i}"
       pred_rec.wind = Wind.create(dir: past_records.last.wind.dir,
                            speed: wind_speed_analyser.extrapolate(pred_time.to_i)[0],
                            prob: wind_speed_analyser.extrapolate(pred_time.to_i)[1])
+      p "analysing rain #{i}"
       pred_rec.rain = Rain.create(amount: rain_analyser.extrapolate(pred_time.to_i)[0],
                            prob: rain_analyser.extrapolate(pred_time.to_i)[1])
     end

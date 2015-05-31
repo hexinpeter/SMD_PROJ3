@@ -20,15 +20,15 @@ class DataAnalysis
 
   # eq: y = @coeffs['x1']x^1 + @coeffs['x2']x^2 + @coeffs['x3']x^3 + ... + @constant
   def analyse_poly!
-    # analyse! prepare_poly(fittest_poly_degree)
-    tpo = Polynomial.new(@x_data, @y_data)
-    tpo.calc
-    @constant = tpo.coefficients[0]
-    @coeffs = {}
-    (1..tpo.coefficients.length).each do |i|
-      @coeffs["x#{i}"] = tpo.coefficients[i]
-    end
-    @r2 = tpo.r_square
+    analyse! prepare_poly(fittest_poly_degree)
+    # tpo = Polynomial.new(@x_data, @y_data)
+    # tpo.calc
+    # @constant = tpo.coefficients[0]
+    # @coeffs = {}
+    # (1..tpo.coefficients.length-1).each do |i|
+    #   @coeffs["x#{i}"] = tpo.coefficients[i]
+    # end
+    # @r2 = tpo.r_square
   end
 
   # eq: y = @coeffs['x1']x^1 + .. + @coeffs["x#{degree}"]x^degree + @constant
@@ -51,64 +51,69 @@ class DataAnalysis
 
     begin
       analyse_linear!
+      if @r2 > best_r2
+        best_r2 = @r2
+        coef_x = @coeffs['x']
+        const = @constant
+        @best_eq = Proc.new { |x| coef_x*x + const }
+        @best_eq_r2 = @r2
+        p "linear chosen"
+      end
     rescue Exception
       p "linear error"
-    end
-    if @r2 > best_r2
-      best_r2 = @r2
-      coef_x = @coeffs['x']
-      const = @constant
-      @best_eq = Proc.new { |x| coef_x*x + const }
-      @best_eq_r2 = @r2
-      p "linear chosen"
     end
 
     begin
       analyse_poly!
+      if @r2 > best_r2
+        best_r2 = @r2
+        poly_cos = @coeffs.dup
+        const = @constant
+        @best_eq = Proc.new do |x|
+          result = 0
+          poly_cos.keys.each do |key|
+            result += poly_cos[key] * (x ** key[1..-1].to_i)
+          end
+          result += const
+        end
+        @best_eq_r2 = @r2
+        p "poly chosen"
+      end
     rescue Exception
       p "poly error"
-    end
-    if @r2 > best_r2
-      best_r2 = @r2
-      poly_cos = @coeffs.dup
-      const = @constant
-      @best_eq = Proc.new do |x|
-        result = 0
-        poly_cos.keys.each do |key|
-          result += poly_cos[key] * (x ** key[1..-1].to_i)
-        end
-        result += const
-      end
-      @best_eq_r2 = @r2
-      p "poly chosen"
     end
 
     begin
       analyse_exp!
+      if @r2 > best_r2
+        best_r2 = @r2
+        coef_a = @coeffs['A']
+        coef_b = @coeffs['B']
+        @best_eq = Proc.new { |x| coef_a * Math.exp(coef_b * x) }
+        @best_eq_r2 = @r2
+        p "exponential chosen"
+      end
     rescue Exception
       p "exponential error"
-    end
-    if @r2 > best_r2
-      best_r2 = @r2
-      coef_a = @coeffs['A']
-      coef_b = @coeffs['B']
-      @best_eq = Proc.new { |x| coef_a * Math.exp(coef_b * x) }
-      @best_eq_r2 = @r2
-      p "exponential chosen"
     end
 
     begin
       analyse_log!
+      if @r2 > best_r2
+        best_r2 = @r2
+        coe_log = @coeffs['xlog']
+        const = @constant
+        @best_eq = Proc.new { |x| coe_log * Math.log(x) + const }
+        @best_eq_r2 = @r2
+        p "log chosen"
+      end
     rescue Exception
       p "log error"
     end
-    if @r2 > best_r2
-      best_r2 = @r2
-      coe_log = @coeffs['xlog']
-      const = @constant
-      @best_eq = Proc.new { |x| coe_log * Math.log(x) + const }
-      @best_eq_r2 = @r2
-      p "log chosen"
+
+    if !@best_eq
+      @best_eq = Proc.new { |x| @x_data.last }
+      @best_eq_r2 = 0.01
     end
 
     @best_eq
