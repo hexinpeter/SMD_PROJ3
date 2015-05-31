@@ -39,7 +39,7 @@ If in "production":
 
 ### Prediction
 
-* 4 types of regression will be done over the data, linear, polynomial, exponential, logarithmic. The one will with the largest R-square value will be chosen as the best fit regression to calculate predictions.
+* 4 types of regression will be done over the data, linear, polynomial, exponential, logarithmic. The one with the largest R-square value will be chosen as the best fit regression to calculate predictions.
 
 * The predictions get more accurate when there are more past data.
 
