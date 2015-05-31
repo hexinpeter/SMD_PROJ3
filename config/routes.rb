@@ -7,6 +7,10 @@ Rails.application.routes.draw do
 
   get 'weather/data/:location_id/:date', to: 'data#show'
 
+  get "weather/predicition/:post_code/:period", to: "prediction#show"
+
+  get "weather/predicition/:lat/:long/:period", to: "prediction#show_area"
+
 #   scope module: 'data' do
 #     resources :show, :show_area
 #   end

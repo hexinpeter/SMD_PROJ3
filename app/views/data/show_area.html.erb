@@ -1,25 +1,51 @@
 <ul>
   <li>weather/data/:post_code/:date</li>
-  <li>post_code: <%= @post_code %></li>
+  <li>post_code: <%= @my_post_code %></li>
   <li>date: <%= @date %></li>
 </ul>
 
-
-
 <% @my_locations.each do |location| %>
-<table>
+<table border="1">
   <tr>
-    <td>ref_code for this location:</td>
-    <td><% location.ref_code %></td>
+    <td>id</td><td><%= location.ref_code %></td>
   </tr>
 
   <tr>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
+    <td>lat</td><td><%= location.lat %></td>
   </tr>
+
+  <tr>
+    <td>lon</td><td><%= location.long %></td>
+  </tr>
+
+  <tr>
+    <td>last_update</td><td><%= location.records.last.time %></td>
+  </tr>
+  <tr></tr>
 </table>
 <br>
+<table border="1">
+  <tr>
+    <td>time</td>
+    <td>temp</td>
+    <td>precip</td>
+    <td>wind_direction</td>
+    <td>wind_speed</td>
+  </tr>
+
+<% all_records = location.records %>
+<% all_records.each do |record|%>
+
+<%   if record.time.strftime('%d-%m-%Y').eql? @date %>
+  <tr>
+    <td><%= record.time %></td>
+    <td><%= record.temperature.value %></td>
+    <td><%= record.rain.amount %></td>
+    <td><%= record.wind.dir %></td>
+    <td><%= record.wind.speed %></td>
+  </tr>
+<%   end %>
+<% end %>
+</table>
+<br><br>
 <% end %>

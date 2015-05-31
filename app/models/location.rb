@@ -38,7 +38,7 @@ class Location < ActiveRecord::Base
     def find_closest_with_postcode(postcode)
       if PostCode.where(num: postcode).any?
         return PostCode.where(num: postcode).first.locations.first
-      elsif postcode >= 3000 && postcode <= 3999
+      elsif postcode.to_i >= 3000 && postcode <= 3999.to_i
         # reading from the csv to get lat and long
         locations = CSV.read(Rails.root.join('db', 'Postcodes.csv'))
         locations.each do |loc|
