@@ -20,7 +20,15 @@ class DataAnalysis
 
   # eq: y = @coeffs['x1']x^1 + @coeffs['x2']x^2 + @coeffs['x3']x^3 + ... + @constant
   def analyse_poly!
-    analyse! prepare_poly(fittest_poly_degree)
+    # analyse! prepare_poly(fittest_poly_degree)
+    tpo = Polynomial.new(@x_data, @y_data)
+    tpo.calc
+    @constant = tpo.coefficients[0]
+    @coeffs = {}
+    (1..tpo.coefficients.length).each do |i|
+      @coeffs["x#{i}"] = tpo.coefficients[i]
+    end
+    @r2 = tpo.r_square
   end
 
   # eq: y = @coeffs['x1']x^1 + .. + @coeffs["x#{degree}"]x^degree + @constant
@@ -41,18 +49,24 @@ class DataAnalysis
   def best_equation
     best_r2 = 0
 
-    analyse_linear!
+    begin
+      analyse_linear!
+    rescue Exception
+      p "linear error"
+    end
     if @r2 > best_r2
       best_r2 = @r2
       coef_x = @coeffs['x']
       const = @constant
       @best_eq = Proc.new { |x| coef_x*x + const }
       @best_eq_r2 = @r2
+      p "linear chosen"
     end
 
     begin
       analyse_poly!
     rescue Exception
+      p "poly error"
     end
     if @r2 > best_r2
       best_r2 = @r2
@@ -66,11 +80,13 @@ class DataAnalysis
         result += const
       end
       @best_eq_r2 = @r2
+      p "poly chosen"
     end
 
     begin
       analyse_exp!
     rescue Exception
+      p "exponential error"
     end
     if @r2 > best_r2
       best_r2 = @r2
@@ -78,11 +94,13 @@ class DataAnalysis
       coef_b = @coeffs['B']
       @best_eq = Proc.new { |x| coef_a * Math.exp(coef_b * x) }
       @best_eq_r2 = @r2
+      p "exponential chosen"
     end
 
     begin
       analyse_log!
     rescue Exception
+      p "log error"
     end
     if @r2 > best_r2
       best_r2 = @r2
@@ -90,6 +108,7 @@ class DataAnalysis
       const = @constant
       @best_eq = Proc.new { |x| coe_log * Math.log(x) + const }
       @best_eq_r2 = @r2
+      p "log chosen"
     end
 
     @best_eq
@@ -191,3 +210,83 @@ class DataAnalysis
       @r2 = analysis.r2
     end
 end
+
+class Polynomial
+  attr_accessor :coefficients
+  attr_accessor :r_square
+
+  def initialize data_time, data_data_point
+    @data_time = data_time
+    @data_data_point = data_data_point
+    self.calc
+  end
+
+  def calc
+    #  loop throught till power of 10
+    best_coefficient = Array.new
+    best_r_square = 10**10 # just big number
+    for i in (0..10) # do till x**10
+      temp_coefficient = regress(i)
+      temp_r_square = get_r_square(temp_coefficient)
+      if temp_r_square < best_r_square
+        best_r_square = temp_r_square
+        best_coefficient = temp_coefficient
+      end
+    end
+    @coefficients = best_coefficient
+    @r_square = best_r_square
+  end
+
+#  this piece of code is from Project spec
+  def regress degree
+    x_data = @data_time.map { |x_i| (0..degree).map { |pow| (x_i**pow).to_f } }
+    mx = Matrix[*x_data]
+    my = Matrix.column_vector(@data_data_point)
+    my_coefficients = ((mx.t * mx).inv * mx.t * my).transpose.to_a[0]
+    return my_coefficients
+  end
+
+  def get_r_square my_coefficients
+    sum_of_error_square = 0
+    sum_of_data_data_point = 0
+    for i in (0..@data_time.length - 1)
+      sum_of_RHS = 0.0
+      (0..my_coefficients.length - 1).each do |j|
+        sum_of_RHS += my_coefficients[j] * @data_time[i]**j
+      end
+      sum_of_error_square = (sum_of_RHS - @data_data_point[i])**2
+      sum_of_data_data_point += @data_data_point[i]
+    end
+    mean_of_data_data_point = sum_of_data_data_point/@data_data_point.length
+    sum_of_error_mean = 0
+    for i in (0..@data_time.length - 1)
+      sum_of_error_mean += (@data_data_point[i] - mean_of_data_data_point)**2
+    end
+    return (sum_of_error_square/sum_of_error_mean)
+  end
+
+  def print_formula
+    (0..@coefficients.length - 1).each do |i|
+      print @coefficients[i].round(2)
+      if i > 0
+        print "x"
+      end
+      if i > 1
+        print "^" + i.to_s
+      end
+      if i != (@coefficients.length - 1)
+        if  @coefficients[i+1] > 0
+          print  "  +  "
+        else
+          print  "  -  "
+        end
+      end
+    end
+    puts
+  end
+
+  def print_r_square
+    puts "R square = " + @r_square.to_s
+  end
+end
+
