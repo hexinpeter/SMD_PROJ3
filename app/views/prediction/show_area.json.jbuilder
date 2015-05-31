@@ -1,4 +1,6 @@
-json.location_id @location.ref_code
+if @location
+  json.location_id @location.ref_code
+end
 
 json.predictions do
   @predictions.each_index do |i|

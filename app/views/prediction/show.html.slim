@@ -1,0 +1,24 @@
+h2 Latitude: #{@lat}
+h2 Longtitude: #{@long}
+
+table.table
+  tr
+    th time
+    th Rain Amount
+    th Rain Prob
+    th Temperature
+    th Temp Prob
+    th Wind Dir
+    th Wind Speed
+    th Wind Prob
+  - @predictions.each do |pred|
+    tr
+      td = pred.time.strftime("%R %d-%m-%Y")
+      td #{pred.rain.amount.round(2)}mm
+      td = pred.rain.prob.round(2)
+      td = pred.temperature.value.round(2)
+      td = pred.temperature.prob.round(2)
+      td = pred.wind.dir
+      td = pred.wind.speed.round(2)
+      td = pred.wind.prob.round(2)
+
