@@ -39,7 +39,7 @@ class Location < ActiveRecord::Base
     # the last prediction is made less than 10 min ago
     return 1 if predicted_records.any? && (Time.now - predicted_records.last.created_at) < 600
 
-    past_records = actual_records.where(time: (Time.now - 180.minutes)..Time.now)
+    past_records = actual_records
 
     return nil if past_records.length < 0
 

@@ -2,7 +2,7 @@
 
 ## Assumptions
 
-* Only Victoria locations or postcodes[3000 - 3999] will be provided.
+* Only Victoria locations and postcodes[3000 - 3999] are allowed in the usage of this application
 
 ## Installation
 
@@ -43,4 +43,8 @@ If in "production":
 * When the sum of difference exceeds 1, approximately 100km in distance, a "beyond our prediction range" error will be returned.
 
 ### Prediction
+
+* 4 types of regression will be done over the data, linear, polynomial, exponential, logarithmic. The one will with the largest R-square value will be chosen as the best fit regression to calculate predictions.
+
+* The predictions get more accurate when there are more past data.
 

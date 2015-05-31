@@ -59,5 +59,6 @@ group :development, :test do
 
   # Use pry in Rails console
   # gem 'pry-rails'
+  # gem 'pry-doc'
 end
 
