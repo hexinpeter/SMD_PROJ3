@@ -33,6 +33,7 @@ gem 'tzinfo-data'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
+gem 'slim'
 
 # RESTful API
 gem 'rest-client'
@@ -41,7 +42,7 @@ gem 'rest-client'
 gem 'bootstrap-sass', '~> 3.2.0'
 gem 'autoprefixer-rails'
 
-# gem 'whenever', :require => false
+gem 'whenever', :require => false
 
 # stats
 gem 'statsample'
