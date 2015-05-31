@@ -24,11 +24,6 @@ If in "production":
 2. Run from console `whenever --update-crontab`
 
 
-## Navigate around
-
-* View Json output of all locations by going to `/weather/locations.json`
-
-
 ## Multi-timezone Support
 
 * every time instance must be saved to the db with a timezone attached to it
