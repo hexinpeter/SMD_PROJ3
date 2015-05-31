@@ -20,6 +20,8 @@
 # Learn more: http://github.com/javan/whenever
 set :output, "#{path}/log/cron.log"
 
-every 30.minutes do
+FREQUENCY = 60.minutes
+
+every FREQUENCY do
   rake "weather:forecastio", :environment => 'development'
 end

@@ -24,6 +24,12 @@ If in "production":
 2. Run from console `whenever --update-crontab`
 
 
+## Change Data Retrieving Frequency
+
+* Change the `FREQUENCY` variable in `config/schedule.rb`
+* Change the number of locations available by changing the `POST_CODE_GAP` in `db/seeds.rb`
+
+
 ## Multi-timezone Support
 
 * every time instance must be saved to the db with a timezone attached to it
@@ -41,5 +47,5 @@ If in "production":
 
 * 4 types of regression will be done over the data, linear, polynomial, exponential, logarithmic. The one with the largest R-square value will be chosen as the best fit regression to calculate predictions.
 
-* The predictions get more accurate when there are more past data.
+* The predictions get more accurate when the app is left to run for a longer time with recurring task set up.
 
