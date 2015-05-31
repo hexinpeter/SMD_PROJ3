@@ -1,0 +1,43 @@
+
+### CHANGES ###
+
+We have changed our database stucture as we changed our data model.
+
+
+1.For the Location class, we change the name attribute to the ref_code as an integer to uniquely classify individual locations of same postcode. We also added some functions for Location model to generate the ref_code, as we want better classification for the postcode and different locations for easy implementation when we need to retrieve our data.
+
+
+2.Since we don't need to implement Source class for retriving the names of website we get our data from, so we remove Source class from our class diagram.
+
+
+3. For the source we retrieve all the postcodes and locations from, we ordinarily plan to use an api from some website where we can retrive those things we want.
+Luckily we found a csv file which includes all the australian locations packed with postcodes, lontitudes and latitudes etc, helping us build the foundation of our database.
+
+
+
+### CHALLENGES ###
+
+1. Forcast.io has limit with 1000 visited per day. After we found there are more than one location for each postcode and we have 4000(3000-3999) postcodes which means we have more than 4000 sets of data to retrive from forecast.io. In order to fullfil the requirement (3000-3999) we initially plan to store all data. In reality, we found more data gives out better prediction. We tried to hold the balance between the limit and performance.
+
+
+2. routes: same routes pattren. solution: use 'render' a specific view
+
+3. prediction...
+
+
+
+
+
+
+
+### THOUGHTS ###
+
+Value of design before implemntation?
+
+High quality code
+dubugging time reduction
+accomplish in small steps
+
+
+1. stick to a design pattern such as MVC
+2. need good understanding of the problem domain
