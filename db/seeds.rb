@@ -9,7 +9,7 @@
 
 require 'csv'
 
-POST_CODE_GAP = 10 # save 1 post code among the POST_CODE_GAP number of post codes
+POST_CODE_GAP = 50 # save 1 post code among the POST_CODE_GAP number of post codes
 
 locations = CSV.read('./db/Postcodes.csv')
 

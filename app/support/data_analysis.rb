@@ -10,6 +10,7 @@ class DataAnalysis
     @constant = nil
     @r2 = nil
     @best_eq = nil
+    @best_eq_r2 = nil
   end
 
   # eq: y = @coeffs['x']x + @constant
@@ -46,9 +47,13 @@ class DataAnalysis
       coef_x = @coeffs['x']
       const = @constant
       @best_eq = Proc.new { |x| coef_x*x + const }
+      @best_eq_r2 = @r2
     end
 
-    analyse_poly!
+    begin
+      analyse_poly!
+    rescue Exception
+    end
     if @r2 > best_r2
       best_r2 = @r2
       poly_cos = @coeffs.dup
@@ -60,36 +65,40 @@ class DataAnalysis
         end
         result += const
       end
+      @best_eq_r2 = @r2
     end
 
     begin
       analyse_exp!
-    rescue
+    rescue Exception
     end
     if @r2 > best_r2
       best_r2 = @r2
       coef_a = @coeffs['A']
       coef_b = @coeffs['B']
       @best_eq = Proc.new { |x| coef_a * Math.exp(coef_b * x) }
+      @best_eq_r2 = @r2
     end
 
     begin
       analyse_log!
-    rescue
+    rescue Exception
     end
     if @r2 > best_r2
       best_r2 = @r2
       coe_log = @coeffs['xlog']
       const = @constant
       @best_eq = Proc.new { |x| coe_log * Math.log(x) + const }
+      @best_eq_r2 = @r2
     end
 
     @best_eq
   end
 
+  # Return the extrapolated value, and the r-square value for the best-fit equation used
   def extrapolate(x)
     @best_eq ||= best_equation
-    @best_eq.call x
+    [@best_eq.call(x), @best_eq_r2]
   end
 
   # calculate the R-squared value of this dataset to measure the fitness of the given equation
@@ -110,7 +119,7 @@ class DataAnalysis
     1 - (ss_res.to_f/ss_tot)
   end
 
-  private
+  # private
 
     def prepare_linear
       x = @x_data.to_scale
