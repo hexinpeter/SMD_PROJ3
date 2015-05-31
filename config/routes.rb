@@ -10,6 +10,8 @@ Rails.application.routes.draw do
   get 'data/show_area'
 
   get '/weather/prediction/:post_code/:period', to: 'prediction#show_area'
+
+  get '/weather/prediction/:lat/:long/:period', to: 'prediction#show'
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
