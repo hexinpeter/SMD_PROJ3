@@ -1,11 +1,10 @@
 <ul>
   <li>weather/data/:location_id___postcode/:date</li>
   <li>date: <%= @date %></li>
-<% if @my_locations == nil %>
-  <li>Given postcode is outside out asumption, see README</li>
-<% else %>
+<%  %>
+<% if @my_locations != nil %>
   <li>current_temp: <%= @my_locations.records.last.temperature.value %></li>
-  <% end %>
+<% end %>
 </ul>
 
 <!-- # <% if @my_locations != nil %> -->

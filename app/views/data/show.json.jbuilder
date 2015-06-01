@@ -13,5 +13,5 @@
       json.wind_speed record.wind.speed
     end
   else
-    json.problem "Invalid postcode. See README"
+    json.problem "Bad location ID"
   end
