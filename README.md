@@ -1,5 +1,14 @@
 # SMD_PROJ3
 
+Team,44
+hex1,He	Xin,625282
+soc1,Chen,Bill,617292
+tangw1,Tang,Wen Zhe,633818
+Submitted as SMD project 3 part 2
+
+
+
+
 ## Assumptions
 
 * Only Victoria locations and postcodes[3000 - 3999] are allowed in the usage of this application
@@ -48,4 +57,3 @@ If in "production":
 * 4 types of regression will be done over the data, linear, polynomial, exponential, logarithmic. The one with the largest R-square value will be chosen as the best fit regression to calculate predictions.
 
 * The predictions get more accurate when the app is left to run for a longer time with recurring task set up.
-

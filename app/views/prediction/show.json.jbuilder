@@ -1,3 +1,4 @@
+
 json.latitude "#{@lat}"
 json.longtitude "#{@long}"
 
@@ -20,4 +21,5 @@ json.predictions do
       end
     end
   end
+>>>>>>> origin/prediction_lat_long
 end

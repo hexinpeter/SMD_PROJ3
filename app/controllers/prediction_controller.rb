@@ -1,6 +1,7 @@
 class PredictionController < ApplicationController
   # GET '/weather/predicition/:lat/:long/:period'
   def show
+
     @location = Location.find_closest(params['lat'].to_i, params['long'].to_i)
     @predictions = @location ? @location.predictions(params['period'].to_i) : []
     @lat = params['lat'].to_i
