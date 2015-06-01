@@ -41,7 +41,7 @@ class Location < ActiveRecord::Base
 
     past_records = actual_records
 
-    return nil if past_records.length < 0
+    return nil if past_records.length < 1
 
     ref_time = past_records.order(:time).last.time
 
