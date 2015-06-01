@@ -112,7 +112,7 @@ class DataAnalysis
     end
 
     if !@best_eq
-      @best_eq = Proc.new { |x| @x_data.last }
+      @best_eq = Proc.new { |x| @y_data.last }
       @best_eq_r2 = 0.01
     end
 
