@@ -1,6 +1,6 @@
 
 
-  if @my_records != nil
+  if @my_records.any?
     json.date @date
     json.current_temp @my_records.last.temperature.value
     json.current_cond @my_records.last.condition

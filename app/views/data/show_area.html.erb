@@ -19,7 +19,7 @@
   </tr>
 
   <tr>
-    <td>last_update</td><td><%= location.records.last.time %></td>
+    <td>last_update</td><td><%= location.last_update %></td>
   </tr>
   <tr></tr>
 </table>
@@ -33,7 +33,7 @@
     <td>wind_speed</td>
   </tr>
 
-<% all_records = location.records %>
+<% all_records = location.actual_records %>
 <% all_records.each do |record|%>
 
 <%   if record.time.strftime('%d-%m-%Y').eql? @date %>

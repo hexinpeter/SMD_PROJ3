@@ -4,9 +4,9 @@ json.locations @my_locations do |location|
   json.id location.ref_code
   json.lat location.lat
   json.long location.long
-  json.last_update location.records.last.time.strftime("%H:%M%P %d-%m-%Y")
+  json.last_update location.last_update
 
-  json.measurements location.records do |record|
+  json.measurements location.actual_records do |record|
     if record.time.strftime('%d-%m-%Y') == @date
       json.time record.time.strftime("%l:%M:%S %P")
       json.temp record.temperature.value

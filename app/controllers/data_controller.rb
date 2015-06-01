@@ -34,7 +34,7 @@ class DataController < ApplicationController
         @all_records ==[]
         return
       else
-        @all_records = @my_locations.records
+        @all_records = @my_locations.actual_records
       end
 
       @all_records.each do |record|
