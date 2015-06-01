@@ -1,37 +1,16 @@
 class PredictionController < ApplicationController
+  # GET '/weather/predicition/:lat/:long/:period'
   def show
 
-    @post_code = params["post_code"]
-    @period = params["period"]
-    @my_location_id = Location.find_closest_with_postcode(@post_code).ref_code
-
-    @bad_post_code = false
-    if @post_code.to_i < 3000 && @post_code.to_i > PostCode.all.length || @post_code.to_i > 3999 || @my_location_id == nil
-      @bad_post_code = true
-      return
-    end
-
-    @my_predictions = []
-
-
-
+    @location = Location.find_closest(params['lat'].to_i, params['long'].to_i)
+    @predictions = @location ? @location.predictions(params['period'].to_i) : []
+    @lat = params['lat'].to_i
+    @long = params['long'].to_i
   end
 
+  # GET '/weather/prediction/:post_code/:period'
   def show_area
-
-    @lat = params["lat"]
-    @long = params["long"]
-    @period = params["period"]
-    @bad_lat_long = false
-
-
-
-
-
-
-
-
-
-
+    @location = Location.find_closest_with_postcode(params['post_code'].to_i)
+    @predictions = @location ? @location.predictions(params['period'].to_i) : []
   end
 end

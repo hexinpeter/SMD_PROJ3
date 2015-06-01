@@ -28,7 +28,7 @@ class DataController < ApplicationController
         return
       end
 
-      @my_locations = Location.where(id: @location_id)[0]
+      @my_locations = Location.where(ref_code: @location_id)[0]
       @all_records = @my_locations.records
       @my_records = []
       @all_records.each do |record|
@@ -53,34 +53,12 @@ class DataController < ApplicationController
       end
 
       render :show_area
-      # redirect_to :controller => "data", :action => "show_area", :post_code => "#{@location_id}", :date => "#{@date}"
-      # redirect_to  url_for(:controller => :data, :action => :show_area, :params => :date, :params => :location_id)
     end
 
   end
 
 
   def show_area
-
-    # @post_code = params["location_id"]
-    # @date = params["date"]
-
-    # @my_locations = Location.find_closest_with_postcode(@postcode)
-    # @my_records = []
-    #
-    # @my_locations.records do |record|
-    #   if record.time.strftime('%d-%m-%Y') == @date
-    #     @my_records << record
-    #   end
-    # end
-
-
-
-
-
-
-
-
 
   end
 end
