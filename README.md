@@ -1,17 +1,5 @@
 # SMD_PROJ3
 
-Team,44
-
-hex1,He	Xin,625282
-
-soc1,Chen,Bill,617292
-
-tangw1,Tang,Wen Zhe,633818
-
-Submitted as SMD project 3 part 2
-
-Github Link: [https://github.com/hexinpeter/SMD_PROJ3](https://github.com/hexinpeter/SMD_PROJ3)
-
 
 ## Assumptions
 
