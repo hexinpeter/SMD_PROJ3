@@ -18,19 +18,25 @@ class DataController < ApplicationController
     end
 
     isBadPostCode = false
-    if @location_id.to_i < 3000 || @location_id.to_i > 3999
+    if @location_id.to_i < 3000 || (@location_id.to_i > 3999 && @location_id.to_i < 10000)
       isBadPostCode == true
     end
 
     if !isPostCode
 
-      if @location_id.to_i < 3000 && @location_id.to_i > Location.all.length || @location_id.to_i > 3999
+      if @location_id.to_i < 3000 && @location_id.to_i > Location.all.length || (@location_id.to_i > 3999 && @location_id.to_i < 10000)
         return
       end
 
       @my_locations = Location.where(ref_code: @location_id)[0]
-      @all_records = @my_locations.records
       @my_records = []
+      if @my_locations == nil
+        @all_records ==[]
+        return
+      else
+        @all_records = @my_locations.records
+      end
+
       @all_records.each do |record|
         temp = @date.scan(/-/)
         if temp.length == 2 #record.time.strftime('%d-%m-%Y').equal? @date
